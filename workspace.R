@@ -47,4 +47,4 @@ for( fname in f.names ){
   unlink(fname)
 }
 
-ctx$save(df)
+ctx$save(ctx$select())
