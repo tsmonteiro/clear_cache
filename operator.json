@@ -1,5 +1,5 @@
 {
-  "name": "Clear cache operator",
+  "name": "Clear cache",
   "description": "Placeholder operator to clear cached files used in a workflow.",
   "tags": ["file management", "placeholder"],
   "authors": ["tsmonteiro"],
