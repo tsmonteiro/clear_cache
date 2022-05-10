@@ -1,11 +1,21 @@
 library(tercen)
 library(dplyr, warn.conflicts = FALSE)
+library(tim)
+
 
 ctx = tercenCtx()
 
-ctx %>%
-  select(.y, .ci, .ri) %>% 
-  group_by(.ci, .ri) %>%
-  summarise(mean = mean(.y)) %>%
-  ctx$addNamespace() %>%
-  ctx$save()
+if (!any(ctx$cnames == "documentId")) stop("Column factor documentId is required") 
+
+df <- ctx$cselect()
+docId <- df$documentId
+
+f.names <- tim::load_data(ctx, docId, force_load=FALSE)
+
+for( fname in f.names ){
+  print(fname)
+  unlink(fname)
+}
+
+
+ctx$save(df)

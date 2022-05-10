@@ -1,9 +1,9 @@
 {
-  "name": "Template_R_operator",
-  "description": "Calculate the mathematical average of the data points in a cell.",
-  "tags": ["basic statistics"],
-  "authors": ["tercen"],
-  "urls": ["https://github.com/tercen/template_R_operator_lite"],
+  "name": "Clear cache operator",
+  "description": "Placeholder operator to clear cached files used in a workflow.",
+  "tags": ["file management", "placeholder"],
+  "authors": ["tsmonteiro"],
+  "urls": ["https://github.com/tsmonteiro/clear_cache"],
   "properties": []
 }
 
