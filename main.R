@@ -4,7 +4,6 @@ library(tim)
 
 ctx = tercenCtx()
 
-
 colNames <- ctx$cnames
 # grepl( needle, haystack, fixed = TRUE)
 # Checking for documentId columns
@@ -16,9 +15,9 @@ if (length(docIdCols) == 0 || length(docIdCols) > 2) stop("Either 1 or 2 documen
 
 for( docIdCol in docIdCols ){
   docId <- ctx$cselect(unique(unlist(docIdCol)))
+
   
-  
-  f.names <- tim::load_data(ctx, docId, force_load=FALSE)
+  f.names <- tim::load_data(ctx, docId[[1]], force_load=FALSE)
   
   
   if( length(f.names) > 0){
