@@ -13,8 +13,8 @@ docIdCols <- unname(unlist(colNames[unlist(lapply(colNames, function(x){
 } ))]))
 
 if (length(docIdCols) == 0 || length(docIdCols) > 2) stop("Either 1 or 2 documentId columns expected.") 
-ctx$cselect(unique(unlist(docIds[1])))
-for( docIdCol in docIds ){
+
+for( docIdCol in docIdCols ){
   docId <- ctx$cselect(unique(unlist(docIdCol)))
   
   
