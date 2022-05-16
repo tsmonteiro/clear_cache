@@ -1,6 +1,10 @@
 library(tercen)
 library(dplyr, warn.conflicts = FALSE)
 library(tim)
+#http://127.0.0.1:5402/test-team/w/8ef9012b2d2f050214e16189ba0406b4/ds/3a384786-103c-4f71-a4fc-81da01db627a
+#options("tercen.workflowId" = "8ef9012b2d2f050214e16189ba0406b4")
+#options("tercen.stepId"     = "3a384786-103c-4f71-a4fc-81da01db627a")
+
 
 ctx = tercenCtx()
 
@@ -11,40 +15,33 @@ docIdCols <- unname(unlist(colNames[unlist(lapply(colNames, function(x){
   return(grepl("documentId", x, fixed = TRUE))
 } ))]))
 
-if (length(docIdCols) == 0 || length(docIdCols) > 2) stop("Either 1 or 2 documentId columns expected.") 
+if (length(docIdCols) == 0 ) stop("At least 1 documentId column expected.") 
 
 for( docIdCol in docIdCols ){
   docId <- ctx$cselect(unique(unlist(docIdCol)))
 
+  print(paste0("[documentId] ", docId[[1]]))
   
   f.names <- tim::load_data(ctx, docId[[1]], force_load=FALSE)
   
   
+  # Files saved in /tmp/docId/docId
   if( length(f.names) > 0){
-    baseDir   <- dirname( f.names[1] )
-    baseDirUp <- dirname( baseDir ) # This is where the locks will be for a zip file
+    dpath <- f.names[1]
     
-    if( file.exists(file.path(baseDir, '.downloaded') ) ){
-      unlink(file.path(baseDir, '.downloaded'))
-    }
-    
-    if( file.exists(file.path(baseDir, '.extracted') ) ){
-      unlink(file.path(baseDir, '.extracted'))
-    }
-    
-    if( file.exists(file.path(baseDirUp, '.downloaded') ) ){
-      unlink(file.path(baseDirUp, '.downloaded'))
-    }
-    
-    if( file.exists(file.path(baseDirUp, '.extracted') ) ){
-      unlink(file.path(baseDirUp, '.extracted'))
+    for(i in range(1,2) ){
+      dpath <- dirname(dpath)
+      if( dpath != '/tmp' ){
+        print(paste0("Deleting: ", dpath ) )
+        unlink(dpath, recursive = TRUE)
+      }
     }
   }
   
-  for( fname in f.names ){
-    print(fname)
-    unlink(fname)
-  }
+  #for( fname in f.names ){
+  #  print(fname)
+  #  unlink(fname)
+  #}
 }
 
 ctx$save(ctx$select())
