@@ -28,8 +28,8 @@ for( docIdCol in docIdCols ){
       unlink(file.path(baseDir, '.downloaded'))
     }
     
-    if( file.exists(file.path(baseDir, '.downloaded') ) ){
-      unlink(file.path(baseDir, '.downloaded'))
+    if( file.exists(file.path(baseDir, '.extracted') ) ){
+      unlink(file.path(baseDir, '.extracted'))
     }
     
     if( file.exists(file.path(baseDirUp, '.downloaded') ) ){
