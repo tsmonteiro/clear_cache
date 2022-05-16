@@ -21,27 +21,10 @@ for( docIdCol in docIdCols ){
   docId <- ctx$cselect(unique(unlist(docIdCol)))
 
   print(paste0("[documentId] ", docId[[1]]))
-  
-  f.names <- tim::load_data(ctx, docId[[1]], force_load=FALSE)
-  
-  
-  # Files saved in /tmp/docId/docId
-  if( length(f.names) > 0){
-    dpath <- f.names[1]
-    
-    for(i in range(1,2) ){
-      dpath <- dirname(dpath)
-      if( dpath != '/tmp' ){
-        print(paste0("Deleting: ", dpath ) )
-        unlink(dpath, recursive = TRUE)
-      }
-    }
-  }
-  
-  #for( fname in f.names ){
-  #  print(fname)
-  #  unlink(fname)
-  #}
+
+  tempFolder <- file.path('/tmp', docId[[1]],docId[[1]] )
+
+  unlink(dirname(tempFolder), recursive = TRUE)
 }
 
 ctx$save(ctx$select())
